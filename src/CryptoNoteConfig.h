@@ -1,7 +1,7 @@
 // Copyright (c) 2012-2017, The CryptoNote developers, The Bytecoin developers
 // Copyright (c) 2014-2018, The Monero Project
 // Copyright (c) 2018, The TurtleCoin Developers
-// 
+//
 // Please see the included LICENSE file for more information.
 
 #pragma once
@@ -15,12 +15,12 @@
 namespace CryptoNote {
 namespace parameters {
 
-const uint64_t DIFFICULTY_TARGET                             = 30; // seconds
+const uint64_t DIFFICULTY_TARGET                             = 7200; // seconds
 
 const uint32_t CRYPTONOTE_MAX_BLOCK_NUMBER                   = 500000000;
 const size_t   CRYPTONOTE_MAX_BLOCK_BLOB_SIZE                = 500000000;
 const size_t   CRYPTONOTE_MAX_TX_SIZE                        = 1000000000;
-const uint64_t CRYPTONOTE_PUBLIC_ADDRESS_BASE58_PREFIX       = 3914525;
+const uint64_t CRYPTONOTE_PUBLIC_ADDRESS_BASE58_PREFIX       = 0x8;
 const uint32_t CRYPTONOTE_MINED_MONEY_UNLOCK_WINDOW          = 40;
 const uint64_t CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT            = 60 * 60 * 2;
 const uint64_t CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT_V3         = 3 * DIFFICULTY_TARGET;
@@ -29,18 +29,18 @@ const size_t   BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW             = 60;
 const size_t   BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW_V3          = 11;
 
 // MONEY_SUPPLY - total number coins to be generated
-const uint64_t MONEY_SUPPLY                                  = UINT64_C(100000000000000);
-const uint32_t ZAWY_DIFFICULTY_BLOCK_INDEX                   = 187000;
+const uint64_t MONEY_SUPPLY                                  = UINT64_C(21474836470);
+const uint32_t ZAWY_DIFFICULTY_BLOCK_INDEX                   = 0;
 const size_t ZAWY_DIFFICULTY_V2                              = 0;
 const uint8_t ZAWY_DIFFICULTY_DIFFICULTY_BLOCK_VERSION       = 3;
 
-const uint64_t LWMA_2_DIFFICULTY_BLOCK_INDEX                 = 620000;
+const uint64_t LWMA_2_DIFFICULTY_BLOCK_INDEX                 = 1;
 const uint64_t LWMA_2_DIFFICULTY_BLOCK_INDEX_V2              = 800000;
 
 const uint64_t DIFFICULTY_WINDOW_V3                          = 60;
 const uint64_t DIFFICULTY_BLOCKS_COUNT_V3                    = DIFFICULTY_WINDOW_V3 + 1;
 
-const unsigned EMISSION_SPEED_FACTOR                         = 25;
+const unsigned EMISSION_SPEED_FACTOR                         = 17;
 static_assert(EMISSION_SPEED_FACTOR <= 8 * sizeof(uint64_t), "Bad EMISSION_SPEED_FACTOR");
 
 /* Premine amount */
@@ -75,15 +75,15 @@ const size_t   CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE_V1  = 10000;
 const size_t   CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE_CURRENT = CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE;
 const size_t   CRYPTONOTE_COINBASE_BLOB_RESERVED_SIZE        = 600;
 const size_t   CRYPTONOTE_DISPLAY_DECIMAL_POINT              = 2;
-const uint64_t MINIMUM_FEE                                   = UINT64_C(10);
+const uint64_t MINIMUM_FEE                                   = UINT64_C(500);
 
 const uint64_t MINIMUM_MIXIN_V1                              = 0;
-const uint64_t MAXIMUM_MIXIN_V1                              = 100;
-const uint64_t MINIMUM_MIXIN_V2                              = 7;
-const uint64_t MAXIMUM_MIXIN_V2                              = 7;
+const uint64_t MAXIMUM_MIXIN_V1                              = 3;
+const uint64_t MINIMUM_MIXIN_V2                              = 3;
+const uint64_t MAXIMUM_MIXIN_V2                              = 3;
 
-const uint32_t MIXIN_LIMITS_V1_HEIGHT                        = 440000;
-const uint32_t MIXIN_LIMITS_V2_HEIGHT                        = 620000;
+const uint32_t MIXIN_LIMITS_V1_HEIGHT                        = 0;
+const uint32_t MIXIN_LIMITS_V2_HEIGHT                        = 1;
 
 const uint64_t DEFAULT_MIXIN                                 = MINIMUM_MIXIN_V2;
 
@@ -125,7 +125,7 @@ const uint32_t KEY_IMAGE_CHECKING_BLOCK_INDEX                = 0;
 const uint32_t UPGRADE_HEIGHT_V2                             = 1;
 const uint32_t UPGRADE_HEIGHT_V3                             = 2;
 const uint32_t UPGRADE_HEIGHT_V4                             = 350000; // Upgrade height for CN-Lite Variant 1 switch.
-const uint32_t UPGRADE_HEIGHT_CURRENT                        = UPGRADE_HEIGHT_V4; 
+const uint32_t UPGRADE_HEIGHT_CURRENT                        = UPGRADE_HEIGHT_V4;
 const unsigned UPGRADE_VOTING_THRESHOLD                      = 90;               // percent
 const uint32_t UPGRADE_VOTING_WINDOW                         = EXPECTED_NUMBER_OF_BLOCKS_PER_DAY;  // blocks
 const uint32_t UPGRADE_WINDOW                                = EXPECTED_NUMBER_OF_BLOCKS_PER_DAY;  // blocks
@@ -135,14 +135,10 @@ static_assert(UPGRADE_VOTING_WINDOW > 1, "Bad UPGRADE_VOTING_WINDOW");
 /* Block heights we are going to have hard forks at */
 const uint64_t FORK_HEIGHTS[] =
 {
-    187000,
-    350000,
-    440000,
-    620000,
-    800000,
-    1000000,
-    1200000,
-    1400000
+    4392,
+    8684,
+    13176,
+    17568
 };
 
 const uint64_t FORK_HEIGHTS_SIZE = sizeof(FORK_HEIGHTS) / sizeof(*FORK_HEIGHTS);
@@ -153,7 +149,7 @@ const uint64_t FORK_HEIGHTS_SIZE = sizeof(FORK_HEIGHTS) / sizeof(*FORK_HEIGHTS);
 
    This will default to zero if the FORK_HEIGHTS array is empty, so you don't
    need to change it manually. */
-const uint8_t CURRENT_FORK_INDEX = FORK_HEIGHTS_SIZE == 0 ? 0 : 3;
+const uint8_t CURRENT_FORK_INDEX = FORK_HEIGHTS_SIZE == 0 ? 0 : 0;
 
 static_assert(CURRENT_FORK_INDEX >= 0, "CURRENT FORK INDEX must be >= 0");
 /* Make sure CURRENT_FORK_INDEX is a valid index, unless FORK_HEIGHTS is empty */
@@ -166,7 +162,7 @@ const char     P2P_NET_DATA_FILENAME[]                       = "p2pstate.bin";
 const char     MINER_CONFIG_FILE_NAME[]                      = "miner_conf.json";
 } // parameters
 
-const char     CRYPTONOTE_NAME[]                             = "TurtleCoin";
+const char     CRYPTONOTE_NAME[]                             = "MessyCoin";
 
 const uint8_t  TRANSACTION_VERSION_1                         =  1;
 const uint8_t  TRANSACTION_VERSION_2                         =  2;
